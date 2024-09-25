@@ -1,15 +1,28 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 
 function App() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const iframeUrl = "https://iframe-web-six.vercel.app/";
-
+  const [iframeCount, setIframeCount] = useState<number | null>(null);
   const sendMessageToIframe = () => {
     if (iframeRef.current) {
       iframeRef.current.contentWindow?.postMessage("Hello from parent!", iframeUrl); // Ensure to specify the iframe origin for security
     }
   };
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+
+      if (typeof event.data === 'number') {
+        setIframeCount(event.data);
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   return (
     <>
@@ -17,9 +30,7 @@ function App() {
 
         <iframe
           ref={iframeRef}
-          style={{ height: window.innerHeight, width: window.innerWidth }}
           id="Mantis"
-          frameBorder="0"
           allowFullScreen
           src={iframeUrl}
         ></iframe>
@@ -29,12 +40,9 @@ function App() {
           Send message from parent
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          {iframeCount || "No count from iframe yet"}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
