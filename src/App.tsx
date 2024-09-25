@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const iframeUrl = "https://iframe-web-six.vercel.app/";
-  const [iframeCount, setIframeCount] = useState<number | null>(null);
+  const [iframeCount, setIframeCount] = useState<string | null>(null);
   const sendMessageToIframe = () => {
     if (iframeRef.current) {
       iframeRef.current.contentWindow?.postMessage("Hello from parent!", iframeUrl); // Ensure to specify the iframe origin for security
@@ -15,7 +15,7 @@ function App() {
     const handleMessage = (event: MessageEvent) => {
       console.log(event);
 
-      if (typeof event.data === 'number') {
+      if (typeof event.data === 'string') {
         setIframeCount(event.data);
       }
     };
