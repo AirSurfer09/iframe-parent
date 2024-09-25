@@ -31,7 +31,7 @@ function App() {
           ref={iframeRef}
           style={{
             height: "50vh",
-            width: "100%"
+            width: "80vw"
           }}
           id="Mantis"
           allowFullScreen
