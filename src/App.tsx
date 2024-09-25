@@ -13,6 +13,7 @@ function App() {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      console.log(event);
 
       if (typeof event.data === 'number') {
         setIframeCount(event.data);
