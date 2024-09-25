@@ -27,9 +27,12 @@ function App() {
   return (
     <>
       <div>
-
         <iframe
           ref={iframeRef}
+          style={{
+            height: "50vh",
+            width: "100%"
+          }}
           id="Mantis"
           allowFullScreen
           src={iframeUrl}
