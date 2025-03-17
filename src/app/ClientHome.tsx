@@ -17,8 +17,6 @@ import {
   RevealFx,
   Column,
   Grid,
-  SmartLink,
-  Carousel,
   Background,
 } from '@/once-ui/components';
 
@@ -99,6 +97,25 @@ export default App;`,
     </script>
   </body>
 </html>`,
+    language: 'html',
+  },
+  {
+    title: 'Webflow Integration',
+    description: 'Integration example for Webflow',
+    code: `<div id="pixel-stream-container" style="width: 100%; height: 600px; position: relative;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@convai/experience-embed/dist/convai-embed.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById('pixel-stream-container');
+    if (container) {
+      const pixelStream = new PixelStreamClient.default({
+        container: container,
+        expId: 'your_exp_id', // Replace with your actual Experience ID
+      });
+    }
+  });
+</script>`,
     language: 'html',
   },
 ];
