@@ -121,7 +121,7 @@ export default App;`,
 ];
 
 export default function ClientHome() {
-  const initialExpId = '186c7066-7d9b-4708-b9f1-d3e0bd5750db';
+  const initialExpId = 'f6901503-ed6e-4c08-bcf4-4e3e29f6e17e';
   const streamConfig: PixelStreamComponentProps = {
     expId: initialExpId,
   };
