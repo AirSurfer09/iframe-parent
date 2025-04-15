@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@airsurfer09/web-embed": "^3.2.6",
+    "@airsurfer09/web-embed": "^3.2.7",
     "@floating-ui/react-dom": "^2.1.1",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^14.2.16",
