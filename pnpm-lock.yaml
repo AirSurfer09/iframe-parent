@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@airsurfer09/web-embed':
-        specifier: ^3.2.7
-        version: 3.2.7
+        specifier: ^3.2.8
+        version: 3.2.8
       '@floating-ui/react-dom':
         specifier: ^2.1.1
         version: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -120,8 +120,8 @@ importers:
 
 packages:
 
-  '@airsurfer09/web-embed@3.2.7':
-    resolution: {integrity: sha512-Y0mIoLmw8vajS3Ebke+xNQ/rLLcN6YLOgzp1JGQ5UHCJdAepNUspvOzEDL3cygbzAZd/pCGfqEqBnVFryme5Xw==}
+  '@airsurfer09/web-embed@3.2.8':
+    resolution: {integrity: sha512-sfANrp5kisWJJ+FjBCtD5wlxc6Ru7bxsrwtDMkjjKADu/wNLUC2TDipgPmUQSY3isw1DIBayy6qUKEqMm10nOg==}
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -2486,7 +2486,7 @@ packages:
 
 snapshots:
 
-  '@airsurfer09/web-embed@3.2.7':
+  '@airsurfer09/web-embed@3.2.8':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
