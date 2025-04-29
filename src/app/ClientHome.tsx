@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   PixelStreamComponent,
   PixelStreamComponentProps,
-} from '@airsurfer09/web-embed';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+} from "@airsurfer09/web-embed";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import {
   Heading,
@@ -18,16 +18,16 @@ import {
   Column,
   Grid,
   Background,
-} from '@/once-ui/components';
+} from "@/once-ui/components";
 
-import { baseURL, routes } from '@/app/resources';
-import { home, about, person, newsletter } from '@/app/resources/content';
-import { Mailchimp } from '@/components';
+import { baseURL, routes } from "@/app/resources";
+import { home, about, person, newsletter } from "@/app/resources/content";
+import { Mailchimp } from "@/components";
 
 const codeExamples = [
   {
-    title: 'Installation',
-    description: 'Install the package using your preferred package manager',
+    title: "Installation",
+    description: "Install the package using your preferred package manager",
     code: `# Using npm
 npm install @convai/experience-embed
 
@@ -36,11 +36,11 @@ yarn add @convai/experience-embed
 
 # Using pnpm
 pnpm add @convai/experience-embed`,
-    language: 'bash',
+    language: "bash",
   },
   {
-    title: 'React TypeScript Integration',
-    description: 'Integration example with React and TypeScript',
+    title: "React TypeScript Integration",
+    description: "Integration example with React and TypeScript",
     code: `import React from 'react';
 import { PixelStreamComponent, PixelStreamComponentProps } from '@convai/experience-embed';
 
@@ -56,11 +56,11 @@ function App() {
 }
 
 export default App;`,
-    language: 'typescript',
+    language: "typescript",
   },
   {
-    title: 'React JavaScript Integration',
-    description: 'Integration example with React (JavaScript)',
+    title: "React JavaScript Integration",
+    description: "Integration example with React (JavaScript)",
     code: `import React from 'react';
 import { PixelStreamComponent } from '@convai/experience-embed';
 
@@ -73,11 +73,11 @@ function App() {
 }
 
 export default App;`,
-    language: 'javascript',
+    language: "javascript",
   },
   {
-    title: 'Vanilla JavaScript (CDN)',
-    description: 'Integration using vanilla JavaScript and CDN',
+    title: "Vanilla JavaScript (CDN)",
+    description: "Integration using vanilla JavaScript and CDN",
     code: `<!DOCTYPE html>
 <html>
   <head>
@@ -97,11 +97,11 @@ export default App;`,
     </script>
   </body>
 </html>`,
-    language: 'html',
+    language: "html",
   },
   {
-    title: 'Webflow Integration',
-    description: 'Integration example for Webflow',
+    title: "Webflow Integration",
+    description: "Integration example for Webflow",
     code: `<div id="pixel-stream-container" style="width: 100%; height: 600px; position: relative;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@convai/experience-embed/dist/convai-embed.umd.js"></script>
@@ -116,12 +116,12 @@ export default App;`,
     }
   });
 </script>`,
-    language: 'html',
+    language: "html",
   },
 ];
 
 export default function ClientHome() {
-  const initialExpId = '01ad2713-e35b-4e79-9814-05db90bf1151';
+  const initialExpId = "01ad2713-e35b-4e79-9814-05db90bf1151";
   const streamConfig: PixelStreamComponentProps = {
     expId: initialExpId,
   };
@@ -137,17 +137,17 @@ export default function ClientHome() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
+            "@context": "https://schema.org",
+            "@type": "WebPage",
             name: home.title,
             description: home.description,
             url: `https://${baseURL}`,
             image: `${baseURL}/og?title=${encodeURIComponent(home.title)}`,
             publisher: {
-              '@type': 'Person',
+              "@type": "Person",
               name: person.name,
               image: {
-                '@type': 'ImageObject',
+                "@type": "ImageObject",
                 url: `${baseURL}${person.avatar}`,
               },
             },
@@ -192,7 +192,7 @@ export default function ClientHome() {
               <Flex gap="8" vertical="center">
                 {about.avatar.display && (
                   <Avatar
-                    style={{ marginLeft: '-0.75rem', marginRight: '0.25rem' }}
+                    style={{ marginLeft: "-0.75rem", marginRight: "0.25rem" }}
                     src={person.avatar}
                     size="m"
                   />
@@ -203,7 +203,7 @@ export default function ClientHome() {
           </RevealFx>
         </Column>
       </Column>
-      {routes['/blog'] && (
+      {routes["/blog"] && (
         <Column fillWidth gap="m">
           <Heading
             as="h2"
@@ -215,13 +215,13 @@ export default function ClientHome() {
           </Heading>
           <Column fillWidth gap="m">
             <Grid
-              columns={'1'}
+              columns={"1"}
               mobileColumns="1"
               fillWidth
               style={{
-                height: '600px',
-                borderRadius: 'var(--radius-l)',
-                overflow: 'hidden',
+                height: "600px",
+                borderRadius: "var(--radius-l)",
+                overflow: "hidden",
               }}
             >
               <PixelStreamComponent {...streamConfig} />
@@ -293,14 +293,14 @@ export default function ClientHome() {
                     width: 100,
                     height: 100,
                     tilt: -45,
-                    colorStart: 'var(--color-primary-weak)',
-                    colorEnd: 'var(--color-surface-raised)',
+                    colorStart: "var(--color-primary-weak)",
+                    colorEnd: "var(--color-surface-raised)",
                     opacity: 30,
                   }}
                   dots={{
                     display: true,
-                    color: 'var(--color-primary-weak)',
-                    size: 'l',
+                    color: "var(--color-primary-weak)",
+                    size: "l",
                     opacity: 10,
                   }}
                   lines={{
@@ -312,7 +312,7 @@ export default function ClientHome() {
                   fillWidth
                   gap="m"
                   style={{
-                    position: 'relative',
+                    position: "relative",
                   }}
                 >
                   <Column gap="16">
@@ -325,20 +325,20 @@ export default function ClientHome() {
                     </Text>
                     <div
                       style={{
-                        position: 'relative',
-                        minWidth: '100%',
-                        overflow: 'auto',
+                        position: "relative",
+                        minWidth: "100%",
+                        overflow: "auto",
                       }}
                     >
                       <SyntaxHighlighter
                         language={example.language}
                         style={vscDarkPlus}
                         customStyle={{
-                          backgroundColor: 'var(--color-surface-raised)',
-                          padding: 'var(--space-m)',
-                          borderRadius: 'var(--radius-s)',
+                          backgroundColor: "var(--color-surface-raised)",
+                          padding: "var(--space-m)",
+                          borderRadius: "var(--radius-s)",
                           margin: 0,
-                          minWidth: 'fit-content',
+                          minWidth: "fit-content",
                         }}
                         showLineNumbers={true}
                         wrapLongLines={false}
