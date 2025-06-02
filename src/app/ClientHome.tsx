@@ -131,12 +131,6 @@ export default function ClientHome() {
     console.log("UNREAL MESSAGE CHECKS", msg);
   };
 
-  useEffect(() => {
-    pixelStreamRef.current?.sendMessageToCharacter(
-      "Hey There My Name Is Saurav",
-    );
-  }, []);
-
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
       <script
@@ -249,6 +243,15 @@ export default function ClientHome() {
                 <Heading as="h3" wrap="balance" variant="heading-strong-xl">
                   Interactive Demo
                 </Heading>
+                <Button
+                  onClick={() =>
+                    pixelStreamRef.current?.sendMessageToCharacter(
+                      "Hey There My Name Is Saurav",
+                    )
+                  }
+                >
+                  Send Message To Character
+                </Button>
               </Flex>
               <Column flex={7} gap="16">
                 <Text
