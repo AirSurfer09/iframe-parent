@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   PixelStreamComponent,
-  PixelStreamComponentProps,
+  PixelStreamComponentHandles,
 } from "@convai/experience-embed";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -122,10 +122,20 @@ export default App;`,
 
 export default function ClientHome() {
   const initialExpId = "01ad2713-e35b-4e79-9814-05db90bf1151";
-
+  const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
+
+  const handleUnrealMessage = (msg: string) => {
+    console.log("UNREAL MESSAGE CHECKS", msg);
+  };
+
+  useEffect(() => {
+    pixelStreamRef.current?.sendMessageToCharacter(
+      "Hey There My Name Is Saurav",
+    );
+  }, []);
 
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
@@ -221,7 +231,11 @@ export default function ClientHome() {
                 overflow: "hidden",
               }}
             >
-              <PixelStreamComponent expId={initialExpId} />
+              <PixelStreamComponent
+                ref={pixelStreamRef}
+                expId={initialExpId}
+                onCharacterMessage={handleUnrealMessage}
+              />
             </Grid>
             <Flex
               mobileDirection="column"
