@@ -224,7 +224,6 @@ export default function ClientHome() {
               <PixelStreamComponent
                 expId={initialExpId}
                 serviceUrls={{
-                  sessionFetch: "xyz-test",
                   pixelStreamBase: "pixel-test",
                 }}
               />
