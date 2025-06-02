@@ -221,12 +221,7 @@ export default function ClientHome() {
                 overflow: "hidden",
               }}
             >
-              <PixelStreamComponent
-                expId={initialExpId}
-                serviceUrls={{
-                  pixelStreamBase: "pixel-test",
-                }}
-              />
+              <PixelStreamComponent expId={initialExpId} />
             </Grid>
             <Flex
               mobileDirection="column"
