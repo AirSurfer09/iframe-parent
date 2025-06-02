@@ -122,9 +122,6 @@ export default App;`,
 
 export default function ClientHome() {
   const initialExpId = "01ad2713-e35b-4e79-9814-05db90bf1151";
-  const streamConfig: PixelStreamComponentProps = {
-    expId: initialExpId,
-  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -224,7 +221,13 @@ export default function ClientHome() {
                 overflow: "hidden",
               }}
             >
-              <PixelStreamComponent {...streamConfig} />
+              <PixelStreamComponent
+                expId={initialExpId}
+                serviceUrls={{
+                  sessionFetch: "xyz-test",
+                  pixelStreamBase: "pixel-test",
+                }}
+              />
             </Grid>
             <Flex
               mobileDirection="column"
