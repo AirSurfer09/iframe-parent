@@ -245,12 +245,15 @@ export default function ClientHome() {
                 </Heading>
                 <Button
                   onClick={() =>
-                    pixelStreamRef.current?.sendMessageToCharacter(
-                      "Hey There My Name Is Saurav",
-                    )
+                    pixelStreamRef.current?.beginVoiceInteraction()
                   }
                 >
-                  Send Message To Character
+                  Begin Microphone
+                </Button>
+                <Button
+                  onClick={() => pixelStreamRef.current?.endVoiceInteraction()}
+                >
+                  End Microphone
                 </Button>
               </Flex>
               <Column flex={7} gap="16">
