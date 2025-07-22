@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@airsurfer09/web-embed':
+        specifier: ^3.6.0
+        version: 3.6.0
       '@convai/experience-embed':
         specifier: ^0.2.5
         version: 0.2.5
@@ -119,6 +122,9 @@ importers:
         version: 8.31.1(eslint@9.25.1)(typescript@5.8.2)
 
 packages:
+
+  '@airsurfer09/web-embed@3.6.0':
+    resolution: {integrity: sha512-cgxTTw0iMj8kKUtTgGkDp5hzkL4GtJaWKGJnRhOvxOlT++rutpRprpqqMtA48u4hBKa9suRwiArEGtopnFFpGw==}
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -2488,6 +2494,12 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@airsurfer09/web-embed@3.6.0':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      zod: 3.24.4
 
   '@babel/code-frame@7.26.2':
     dependencies:

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@airsurfer09/web-embed": "^3.6.0",
     "@convai/experience-embed": "^0.2.5",
     "@floating-ui/react-dom": "^2.1.1",
     "@mdx-js/loader": "^3.1.0",

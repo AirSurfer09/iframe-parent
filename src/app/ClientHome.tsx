@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import {
   PixelStreamComponent,
   PixelStreamComponentHandles,
-} from "@convai/experience-embed";
+} from "@airsurfer09/web-embed";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
