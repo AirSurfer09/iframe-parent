@@ -229,6 +229,10 @@ export default function ClientHome() {
                 ref={pixelStreamRef}
                 expId={initialExpId}
                 onCharacterMessage={handleUnrealMessage}
+                serviceUrls={{
+                  sessionFetch: "https://api-stg.convai.com",
+                  pixelStreamBase: "https://x-stg.convai.com",
+                }}
               />
             </Grid>
             <Flex
