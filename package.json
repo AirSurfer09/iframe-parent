@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@airsurfer09/web-embed": "^3.6.0",
-    "@convai/experience-embed": "0.3.4-beta.2",
+    "@convai/experience-embed": "0.3.4-beta.3",
     "@floating-ui/react-dom": "^2.1.1",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^14.2.16",
