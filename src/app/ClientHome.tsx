@@ -228,7 +228,6 @@ export default function ClientHome() {
               <PixelStreamComponent
                 ref={pixelStreamRef}
                 expId={initialExpId}
-                endUserId={"-1"}
                 onCharacterMessage={handleUnrealMessage}
                 serviceUrls={{
                   sessionFetch: "https://api-stg.convai.com",
