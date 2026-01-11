@@ -299,9 +299,6 @@ export default function ClientHome() {
                 }
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
-                serviceUrls={{
-                  pixelStreamBase: "https://x-stg.convai.com/",
-                }}
               />
             </Grid>
             <Flex
