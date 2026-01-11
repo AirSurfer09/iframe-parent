@@ -22,7 +22,7 @@ import {
 
 import { baseURL, routes } from "@/app/resources";
 import { home, about, person, newsletter } from "@/app/resources/content";
-import { Mailchimp } from "@/components";
+import { Mailchimp, InitialScreen, LoadingScreen } from "@/components";
 
 const codeExamples = [
   {
@@ -40,17 +40,46 @@ pnpm add @convai/experience-embed`,
   },
   {
     title: "React TypeScript Integration",
-    description: "Integration example with React and TypeScript",
-    code: `import React from 'react';
-import { PixelStreamComponent, PixelStreamComponentProps } from '@convai/experience-embed';
+    description: "Integration example with React and TypeScript including custom screens",
+    code: `import React, { useRef } from 'react';
+import { PixelStreamComponent, PixelStreamComponentHandles } from '@convai/experience-embed';
 
 function App() {
-  const streamConfig: PixelStreamComponentProps = {
-    expId: 'your_experience_id_here',
-  };
+  const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
+  
   return (
     <div style={{ width: '800px', height: '600px' }}>
-      <PixelStreamComponent {...streamConfig} />
+      <PixelStreamComponent
+        ref={pixelStreamRef}
+        expId="your_experience_id_here"
+        endUserId="-1"
+        InitialScreen={
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            height: '100%',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+          }}>
+            <button 
+              onClick={() => pixelStreamRef.current?.initializeExperience()}
+              style={{ padding: '16px 32px', fontSize: '18px' }}
+            >
+              Start Experience
+            </button>
+          </div>
+        }
+        LoadingScreenComponent={
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%'
+          }}>
+            <div>Loading...</div>
+          </div>
+        }
+      />
     </div>
   );
 }
@@ -60,14 +89,44 @@ export default App;`,
   },
   {
     title: "React JavaScript Integration",
-    description: "Integration example with React (JavaScript)",
-    code: `import React from 'react';
+    description: "Integration example with React (JavaScript) including custom screens",
+    code: `import React, { useRef } from 'react';
 import { PixelStreamComponent } from '@convai/experience-embed';
 
 function App() {
+  const pixelStreamRef = useRef(null);
+  
   return (
     <div style={{ width: '800px', height: '600px' }}>
-      <PixelStreamComponent expId="your-experience-id" />
+      <PixelStreamComponent
+        ref={pixelStreamRef}
+        expId="your-experience-id"
+        endUserId="-1"
+        InitialScreen={
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            height: '100%'
+          }}>
+            <button 
+              onClick={() => pixelStreamRef.current?.initializeExperience()}
+            >
+              Start Experience
+            </button>
+          </div>
+        }
+        LoadingScreenComponent={
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            height: '100%' 
+          }}>
+            Loading...
+          </div>
+        }
+      />
     </div>
   );
 }
@@ -228,6 +287,13 @@ export default function ClientHome() {
               <PixelStreamComponent
                 ref={pixelStreamRef}
                 expId={initialExpId}
+                endUserId="-1"
+                InitialScreen={
+                  <InitialScreen
+                    onClick={() => pixelStreamRef.current?.initializeExperience()}
+                  />
+                }
+                LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
               />
             </Grid>
