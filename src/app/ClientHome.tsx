@@ -297,6 +297,10 @@ export default function ClientHome() {
                     }
                   />
                 }
+                serviceUrls={{
+                  pixelStreamBase: "https://x-stg.convai.com",
+                  sessionFetch: "https://api-stg.convai.com",
+                }}
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
               />
