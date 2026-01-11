@@ -24,7 +24,7 @@ export const LoadingScreen: React.FC = () => {
           tilt: 45,
           colorStart: "var(--color-primary-weak)",
           colorEnd: "var(--color-accent-weak)",
-          opacity: 15,
+          opacity: 20,
         }}
         dots={{
           display: true,
