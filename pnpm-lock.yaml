@@ -12,8 +12,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       '@convai/experience-embed':
-        specifier: 0.4.1-beta.1
-        version: 0.4.1-beta.1
+        specifier: 0.4.1-beta.0
+        version: 0.4.1-beta.0
       '@floating-ui/react-dom':
         specifier: ^2.1.1
         version: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -138,8 +138,8 @@ packages:
     resolution: {integrity: sha512-2WJMeRQPHKSPemqk/awGrAiuFfzBmOIPXKizAsVhWH9YJqLZ0H+HS4c8loHGgW6utJ3E/ejXQUsiGaQy2NZ9Fw==}
     engines: {node: '>=6.9.0'}
 
-  '@convai/experience-embed@0.4.1-beta.1':
-    resolution: {integrity: sha512-UXhjbV0a5tAlbUn4eTeRtNdBpLSUjt+mVpFEOqTw7G/j8a+fe3LsWgGWYJRDvaUniJeSyqY4dZVyGOuQLfTgDg==}
+  '@convai/experience-embed@0.4.1-beta.0':
+    resolution: {integrity: sha512-/zsTD5m9gq8niI2+3/QX4T/yxXzSguVh76C0OVS5gpb0wRpF6FS3fUWzQzWkB4xjJBgaczd55hNA2Ul61LJ7gg==}
 
   '@csstools/cascade-layer-name-parser@1.0.13':
     resolution: {integrity: sha512-MX0yLTwtZzr82sQ0zOjqimpZbzjMaK/h2pmlrLK7DCzlmiZLYFpoO94WmN1akRVo6ll/TdpHb53vihHLUMyvng==}
@@ -2516,7 +2516,7 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@convai/experience-embed@0.4.1-beta.1':
+  '@convai/experience-embed@0.4.1-beta.0':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
