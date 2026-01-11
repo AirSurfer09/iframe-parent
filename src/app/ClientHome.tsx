@@ -40,7 +40,8 @@ pnpm add @convai/experience-embed`,
   },
   {
     title: "React TypeScript Integration",
-    description: "Integration example with React and TypeScript including custom screens",
+    description:
+      "Integration example with React and TypeScript including custom screens",
     code: `import React, { useRef } from 'react';
 import { PixelStreamComponent, PixelStreamComponentHandles } from '@convai/experience-embed';
 
@@ -89,7 +90,8 @@ export default App;`,
   },
   {
     title: "React JavaScript Integration",
-    description: "Integration example with React (JavaScript) including custom screens",
+    description:
+      "Integration example with React (JavaScript) including custom screens",
     code: `import React, { useRef } from 'react';
 import { PixelStreamComponent } from '@convai/experience-embed';
 
@@ -290,11 +292,16 @@ export default function ClientHome() {
                 endUserId="-1"
                 InitialScreen={
                   <InitialScreen
-                    onClick={() => pixelStreamRef.current?.initializeExperience()}
+                    onClick={() =>
+                      pixelStreamRef.current?.initializeExperience()
+                    }
                   />
                 }
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
+                serviceUrls={{
+                  pixelStreamBase: "https://x-stg.convai.com/",
+                }}
               />
             </Grid>
             <Flex
