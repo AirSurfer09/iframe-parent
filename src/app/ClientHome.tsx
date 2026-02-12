@@ -299,6 +299,7 @@ export default function ClientHome() {
                 }
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
+                avatarStudio={true}
               />
             </Grid>
             <Flex
