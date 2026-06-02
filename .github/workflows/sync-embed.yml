@@ -1,0 +1,54 @@
+# It listens for dispatch events from the experience_embed repo
+# and updates @convai/experience-embed on the appropriate branch,
+# which triggers Vercel to redeploy.
+
+name: Sync Embed and Deploy
+
+on:
+  repository_dispatch:
+    types: [deploy-stg, deploy-release]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Resolve target branch and npm tag
+        id: ctx
+        run: |
+          if [ "${{ github.event.action }}" = "deploy-stg" ]; then
+            echo "branch=stg" >> $GITHUB_OUTPUT
+          else
+            echo "branch=main" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.ctx.outputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Update @convai/experience-embed
+        run: pnpm add @convai/experience-embed@${{ github.event.client_payload.version }}
+
+      - name: Commit and push if lockfile changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json pnpm-lock.yaml
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "chore: bump @convai/experience-embed to ${{ github.event.client_payload.version }}"
+          git push
