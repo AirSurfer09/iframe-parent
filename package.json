@@ -32,6 +32,9 @@
     "sass": "^1.77.6",
     "sharp": "^0.33.4"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@parcel/watcher", "sharp", "esbuild"]
+  },
   "devDependencies": {
     "@csstools/postcss-global-data": "^2.1.1",
     "@eslint/js": "^9.25.1",
