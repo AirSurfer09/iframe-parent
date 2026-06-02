@@ -182,7 +182,7 @@ export default App;`,
 ];
 
 export default function ClientHome() {
-  const initialExpId = "a6e4d0c1-cc93-4e91-a844-f8cff3dc1a2a";
+  const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "a6e4d0c1-cc93-4e91-a844-f8cff3dc1a2a";
   const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -298,8 +298,8 @@ export default function ClientHome() {
                   />
                 }
                 serviceUrls={{
-                  pixelStreamBase: "https://x-stg.convai.com",
-                  sessionFetch: "https://api-stg.convai.com",
+                  pixelStreamBase: process.env.NEXT_PUBLIC_PIXEL_STREAM_BASE ?? "https://x-preview.convai.com",
+                  sessionFetch: process.env.NEXT_PUBLIC_SESSION_FETCH_URL ?? "https://api-preview.convai.com",
                 }}
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
