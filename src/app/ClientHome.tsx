@@ -289,7 +289,12 @@ export default function ClientHome() {
               <PixelStreamComponent
                 ref={pixelStreamRef}
                 expId={initialExpId}
-                endUserId="-1"
+                endUserId="saurav@convai.com"
+                endUserMetadata={{
+                  role: "admin",
+                  organization: "convai",
+                  plan: "enterprise",
+                }}
                 InitialScreen={
                   <InitialScreen
                     onClick={() =>
