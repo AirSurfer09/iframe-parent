@@ -308,7 +308,7 @@ export default function ClientHome() {
                 }}
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
-                avatarStudio={true}
+                avatarStudio={false}
               />
             </Grid>
             <Flex
