@@ -1,21 +1,18 @@
 #!/usr/bin/env bash
-# Builds the stripped client image for amd64 + arm64 and pushes it to
-# Convai's Artifact Registry.
+# Builds the stripped client image for amd64 + arm64 and pushes it to Docker Hub.
 #
 #   ./docker/publish.sh <tag> [experience-id]
 #
-# Requires: gcloud auth login && gcloud auth configure-docker <REGION>-docker.pkg.dev
+# Requires: docker login (as a user with push access to the convaieng org)
 set -euo pipefail
 
-REGION="${REGION:-us-west1}"
-PROJECT="${PROJECT:-convaieng}"
-REPO="${REPO:-convai}"
-IMAGE="${IMAGE:-pixelstream-demo}"
+ORG="${ORG:-convaieng}"
+IMAGE="${IMAGE:-pixelstream-domain-test}"
 
 TAG="${1:?usage: publish.sh <tag> [experience-id]}"
 EXP_ID="${2:-}"
 
-REF="${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/${IMAGE}:${TAG}"
+REF="docker.io/${ORG}/${IMAGE}:${TAG}"
 
 echo "Building and pushing ${REF}"
 
@@ -29,4 +26,4 @@ docker buildx build \
 echo
 echo "Pushed ${REF}"
 echo "Client runs it with:"
-echo "  docker run --rm -p 8080:8080 -e EXP_ID=<their-experience-id> ${REF}"
+echo "  docker run --rm -p 8080:8080 -e EXP_ID=<their-experience-id> ${ORG}/${IMAGE}:${TAG}"

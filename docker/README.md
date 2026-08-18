@@ -11,7 +11,7 @@ The page is deliberately minimal: a thin title bar and the embed, nothing else.
 ```bash
 docker run --rm -p 8080:8080 \
   -e EXP_ID=<your-experience-id> \
-  <IMAGE>
+  convaieng/pixelstream-domain-test:latest
 ```
 
 Then open <http://localhost:8080>.
@@ -40,7 +40,7 @@ docker run --rm -p 8080:8080 \
   -e EXP_ID=<your-experience-id> \
   -e PIXEL_STREAM_BASE=https://x-preview.convai.com \
   -e SESSION_FETCH_URL=https://api-preview.convai.com \
-  <IMAGE>
+  convaieng/pixelstream-domain-test:latest
 ```
 
 ## What a successful whitelist looks like
@@ -71,6 +71,8 @@ docker build -t convai-pixelstream-demo \
   --build-arg NEXT_PUBLIC_EXP_ID=<your-experience-id> \
   .
 ```
+
+Convai publishes it with `./docker/publish.sh <tag>`.
 
 Build args mirror the runtime variables but are prefixed `NEXT_PUBLIC_`
 (`NEXT_PUBLIC_EXP_ID`, `NEXT_PUBLIC_PIXEL_STREAM_BASE`, `NEXT_PUBLIC_SESSION_FETCH_URL`,
