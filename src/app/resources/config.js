@@ -1,11 +1,15 @@
 const baseURL = "https://pixelstreaming.convai.com/";
 
+// Stripped-down build shipped to clients (see Dockerfile / NEXT_PUBLIC_CLIENT_MODE).
+// Everything except the embed itself is switched off.
+const CLIENT_MODE = process.env.NEXT_PUBLIC_CLIENT_MODE === "true";
+
 const routes = {
   "/": true,
-  "/about": true,
-  "/work": true,
-  "/blog": true,
-  "/gallery": true,
+  "/about": !CLIENT_MODE,
+  "/work": !CLIENT_MODE,
+  "/blog": !CLIENT_MODE,
+  "/gallery": !CLIENT_MODE,
 };
 
 // Enable password protection on selected routes
@@ -63,8 +67,8 @@ const effects = {
 };
 
 const display = {
-  location: true,
-  time: true,
+  location: !CLIENT_MODE,
+  time: !CLIENT_MODE,
 };
 
 const mailchimp = {

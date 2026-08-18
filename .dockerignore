@@ -1,0 +1,15 @@
+node_modules
+.next
+dist
+out
+.git
+.github
+.vercel
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.idea
+.vscode
+README.md

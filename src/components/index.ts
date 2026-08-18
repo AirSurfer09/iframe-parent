@@ -6,3 +6,4 @@ export { HeadingLink } from "@/components/HeadingLink";
 export { RouteGuard } from "@/components/RouteGuard";
 export { InitialScreen } from "@/components/InitialScreen";
 export { LoadingScreen } from "@/components/LoadingScreen";
+export { ClientEmbed } from "@/components/ClientEmbed";

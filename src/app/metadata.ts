@@ -1,6 +1,20 @@
 import { baseURL } from '@/app/resources';
+import { buildTimeConfig, isClientMode } from '@/app/resources/runtimeConfig';
 
 export async function generateMetadata() {
+  if (isClientMode) {
+    // Client deliverable: neutral title, no portfolio/OG branding, not indexable.
+    return {
+      title: buildTimeConfig.title,
+      description: 'Convai pixel streaming embed',
+      robots: { index: false, follow: false },
+      icons: {
+        icon: [{ url: '/favicon.ico', sizes: 'any' }],
+        shortcut: '/favicon.ico',
+      },
+    };
+  }
+
   const title = 'PixelStreaming | Convai';
   const description = 'Convai PixelStreaming bootstrap guide';
   const imageUrl = `/images/convai-logo.png`;

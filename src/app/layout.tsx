@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import { Footer, Header, RouteGuard } from '@/components';
 import { baseURL, effects, style } from '@/app/resources';
+import { buildTimeConfig, isClientMode } from '@/app/resources/runtimeConfig';
 
 import { Inter } from 'next/font/google';
 import { Source_Code_Pro } from 'next/font/google';
@@ -13,6 +14,15 @@ import { person, home } from '@/app/resources/content';
 import { Background, Column, Flex, ToastProvider } from '@/once-ui/components';
 
 export async function generateMetadata() {
+  if (isClientMode) {
+    // Client deliverable: no Convai branding, no portfolio metadata, not indexable.
+    return {
+      title: buildTimeConfig.title,
+      description: 'Convai pixel streaming embed',
+      robots: { index: false, follow: false },
+    };
+  }
+
   return {
     metadataBase: new URL(`https://${baseURL}`),
     title: home.title,
@@ -115,6 +125,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           margin="0"
           padding="0"
         >
+          {/*
+            Runtime configuration. Regenerated from environment variables on every
+            container start, so a client can repoint the image at a different
+            experience or environment without rebuilding it.
+          */}
+          <script src="/config.js" />
+          {isClientMode ? (
+            children
+          ) : (
+          <>
           <Background
             mask={{
               cursor: effects.mask.cursor,
@@ -178,6 +198,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </Flex>
           </Flex>
           <Footer />
+          </>
+          )}
         </Column>
       </ToastProvider>
     </Flex>
