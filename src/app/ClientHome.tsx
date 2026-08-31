@@ -182,7 +182,7 @@ export default App;`,
 ];
 
 export default function ClientHome() {
-  const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "a6e4d0c1-cc93-4e91-a844-f8cff3dc1a2a";
+  const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "fc9badb1-1557-4d68-b58b-21ae40094f27";
   const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
