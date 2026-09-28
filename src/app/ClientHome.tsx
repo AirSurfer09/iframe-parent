@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   PixelStreamComponent,
   PixelStreamComponentHandles,
@@ -181,7 +181,42 @@ export default App;`,
   },
 ];
 
+/**
+ * Test end users for checking per-user attribution. Each one is bound to the
+ * stream session at allocation, so its conversations should land under its
+ * own speaker in the dashboard, separate from the other two.
+ */
+const TEST_END_USERS = [
+  { id: "pixelfe-tester-1", label: "Tester 1" },
+  { id: "pixelfe-tester-2", label: "Tester 2" },
+  { id: "pixelfe-tester-3", label: "Tester 3" },
+] as const;
+
+const END_USER_STORAGE_KEY = "pixelfe-end-user";
+
 export default function ClientHome() {
+  const [endUserId, setEndUserId] = useState<string>(TEST_END_USERS[0].id);
+  // Hold the embed back until the saved choice is read, so a reload does not
+  // first open a session for the default tester.
+  const [endUserReady, setEndUserReady] = useState(false);
+
+  // Remember the last choice per browser, so a tester keeps their identity
+  // across reloads. Storage can be unavailable, so failures are ignored.
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(END_USER_STORAGE_KEY);
+      if (saved && TEST_END_USERS.some((u) => u.id === saved)) setEndUserId(saved);
+    } catch {}
+    setEndUserReady(true);
+  }, []);
+
+  const selectEndUser = (id: string) => {
+    setEndUserId(id);
+    try {
+      window.localStorage.setItem(END_USER_STORAGE_KEY, id);
+    } catch {}
+  };
+
   const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "fc9badb1-1557-4d68-b58b-21ae40094f27";
   const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
   const copyToClipboard = (text: string) => {
@@ -276,6 +311,31 @@ export default function ClientHome() {
             Welcome to PixelStreaming
           </Heading>
           <Column fillWidth gap="m">
+            <Flex
+              fillWidth
+              paddingX="l"
+              gap="12"
+              vertical="center"
+              wrap
+            >
+              <Text variant="label-default-s" onBackground="neutral-weak">
+                Testing as
+              </Text>
+              {TEST_END_USERS.map((user) => (
+                <Button
+                  key={user.id}
+                  size="s"
+                  variant={user.id === endUserId ? "primary" : "secondary"}
+                  aria-pressed={user.id === endUserId}
+                  onClick={() => selectEndUser(user.id)}
+                >
+                  {user.label}
+                </Button>
+              ))}
+              <Text variant="code-default-s" onBackground="neutral-weak">
+                endUserId: {endUserId}
+              </Text>
+            </Flex>
             <Grid
               columns={"1"}
               mobileColumns="1"
@@ -286,14 +346,15 @@ export default function ClientHome() {
                 overflow: "hidden",
               }}
             >
-              <PixelStreamComponent
+              {endUserReady && <PixelStreamComponent
+                // A new end user needs a new session, so remount on change.
+                key={endUserId}
                 ref={pixelStreamRef}
                 expId={initialExpId}
-                endUserId="saurav@convai.com"
+                endUserId={endUserId}
                 endUserMetadata={{
-                  role: "admin",
+                  role: "tester",
                   organization: "convai",
-                  plan: "enterprise",
                 }}
                 InitialScreen={
                   <InitialScreen
@@ -309,7 +370,7 @@ export default function ClientHome() {
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
                 avatarStudio={false}
-              />
+              />}
             </Grid>
             <Flex
               mobileDirection="column"
