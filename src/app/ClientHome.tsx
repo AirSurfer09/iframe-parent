@@ -317,6 +317,9 @@ export default function ClientHome() {
               gap="12"
               vertical="center"
               wrap
+              // The page's fixed background mask sits over this row and would
+              // swallow clicks; lift the row above it.
+              style={{ position: "relative", zIndex: 2 }}
             >
               <Text variant="label-default-s" onBackground="neutral-weak">
                 Testing as
