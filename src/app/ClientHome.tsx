@@ -194,11 +194,26 @@ const TEST_END_USERS = [
 
 const END_USER_STORAGE_KEY = "pixelfe-end-user";
 
+/**
+ * Experiences the test page can open. The first is the env default (Chloe,
+ * built-in chat shown); Atana is hands-free with the chat hidden, the setup
+ * the 1895 Films pilot uses. `?exp=<experience id>` opens any experience
+ * this domain is allowed to stream.
+ */
+const DEFAULT_EXP_ID = process.env.NEXT_PUBLIC_EXP_ID || "fc9badb1-1557-4d68-b58b-21ae40094f27";
+const TEST_EXPERIENCES = [
+  { id: DEFAULT_EXP_ID, label: "Chloe (chat)" },
+  { id: "d1136a08-b608-4d0e-8936-b113adf5f255", label: "Atana (hands-free, no chat)" },
+] as const;
+const EXP_STORAGE_KEY = "pixelfe-exp";
+const EXP_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export default function ClientHome() {
   const [endUserId, setEndUserId] = useState<string>(TEST_END_USERS[0].id);
   // Hold the embed back until the saved choice is read, so a reload does not
   // first open a session for the default tester.
   const [endUserReady, setEndUserReady] = useState(false);
+  const [expId, setExpId] = useState<string>(DEFAULT_EXP_ID);
 
   // Remember the last choice per browser, so a tester keeps their identity
   // across reloads. Storage can be unavailable, so failures are ignored.
@@ -206,6 +221,13 @@ export default function ClientHome() {
     try {
       const saved = window.localStorage.getItem(END_USER_STORAGE_KEY);
       if (saved && TEST_END_USERS.some((u) => u.id === saved)) setEndUserId(saved);
+    } catch {}
+    // ?exp=<id> wins over the remembered choice, so a link opens what it says.
+    try {
+      const fromUrl = new URLSearchParams(window.location.search).get("exp");
+      const savedExp = window.localStorage.getItem(EXP_STORAGE_KEY);
+      const chosen = fromUrl && EXP_ID_PATTERN.test(fromUrl) ? fromUrl : savedExp;
+      if (chosen && EXP_ID_PATTERN.test(chosen)) setExpId(chosen);
     } catch {}
     setEndUserReady(true);
   }, []);
@@ -217,7 +239,15 @@ export default function ClientHome() {
     } catch {}
   };
 
-  const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "fc9badb1-1557-4d68-b58b-21ae40094f27";
+  const selectExperience = (id: string) => {
+    setExpId(id);
+    try {
+      window.localStorage.setItem(EXP_STORAGE_KEY, id);
+      const url = new URL(window.location.href);
+      url.searchParams.set("exp", id);
+      window.history.replaceState(null, "", url.toString());
+    } catch {}
+  };
   const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
   // Mic mute state as confirmed by the stream page (onMicStatus); null until
   // the first mute/unmute.
@@ -342,6 +372,32 @@ export default function ClientHome() {
                 endUserId: {endUserId}
               </Text>
             </Flex>
+            <Flex
+              fillWidth
+              paddingX="l"
+              gap="12"
+              vertical="center"
+              wrap
+              style={{ position: "relative", zIndex: 2 }}
+            >
+              <Text variant="label-default-s" onBackground="neutral-weak">
+                Experience
+              </Text>
+              {TEST_EXPERIENCES.map((exp) => (
+                <Button
+                  key={exp.id}
+                  size="s"
+                  variant={exp.id === expId ? "primary" : "secondary"}
+                  aria-pressed={exp.id === expId}
+                  onClick={() => selectExperience(exp.id)}
+                >
+                  {exp.label}
+                </Button>
+              ))}
+              <Text variant="code-default-s" onBackground="neutral-weak">
+                expId: {expId}
+              </Text>
+            </Flex>
             <Grid
               columns={"1"}
               mobileColumns="1"
@@ -353,10 +409,10 @@ export default function ClientHome() {
               }}
             >
               {endUserReady && <PixelStreamComponent
-                // A new end user needs a new session, so remount on change.
-                key={endUserId}
+                // A new end user or experience needs a new session, so remount on change.
+                key={`${expId}:${endUserId}`}
                 ref={pixelStreamRef}
-                expId={initialExpId}
+                expId={expId}
                 endUserId={endUserId}
                 endUserMetadata={{
                   role: "tester",
