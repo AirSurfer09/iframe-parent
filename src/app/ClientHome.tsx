@@ -219,6 +219,9 @@ export default function ClientHome() {
 
   const initialExpId = process.env.NEXT_PUBLIC_EXP_ID ?? "fc9badb1-1557-4d68-b58b-21ae40094f27";
   const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
+  // Mic mute state as confirmed by the stream page (onMicStatus); null until
+  // the first mute/unmute.
+  const [micMuted, setMicMuted] = useState<boolean | null>(null);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
@@ -367,11 +370,15 @@ export default function ClientHome() {
                   />
                 }
                 serviceUrls={{
-                  pixelStreamBase: process.env.NEXT_PUBLIC_PIXEL_STREAM_BASE ?? "https://x-preview.convai.com",
-                  sessionFetch: process.env.NEXT_PUBLIC_SESSION_FETCH_URL ?? "https://api-preview.convai.com",
+                  // `||`, not `??`: the Vercel env sets these to "" in places, and an
+                  // empty base makes the embed fall back to its built-in URLs, which
+                  // are prod in a release build.
+                  pixelStreamBase: process.env.NEXT_PUBLIC_PIXEL_STREAM_BASE || "https://x-preview.convai.com",
+                  sessionFetch: process.env.NEXT_PUBLIC_SESSION_FETCH_URL || "https://api-preview.convai.com",
                 }}
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
+                onMicStatus={({ muted }: { muted: boolean }) => setMicMuted(muted)}
                 avatarStudio={false}
               />}
             </Grid>
@@ -399,6 +406,18 @@ export default function ClientHome() {
                 >
                   End Microphone
                 </Button>
+                <Button
+                  onClick={() =>
+                    micMuted
+                      ? pixelStreamRef.current?.unmuteMicrophone()
+                      : pixelStreamRef.current?.muteMicrophone()
+                  }
+                >
+                  {micMuted ? "Unmute Mic" : "Mute Mic"}
+                </Button>
+                <Text variant="body-default-s" onBackground="neutral-weak">
+                  Mic: {micMuted === null ? "–" : micMuted ? "muted" : "live"}
+                </Text>
               </Flex>
               <Column flex={7} gap="16">
                 <Text
