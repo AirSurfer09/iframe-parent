@@ -252,6 +252,9 @@ export default function ClientHome() {
   // Mic mute state as confirmed by the stream page (onMicStatus); null until
   // the first mute/unmute.
   const [micMuted, setMicMuted] = useState<boolean | null>(null);
+  // Chat backplate opacity, passed as the embed's chatStyle prop (0.7 is the
+  // stream page's default look).
+  const [chatOpacity, setChatOpacity] = useState(0.7);
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
@@ -435,6 +438,7 @@ export default function ClientHome() {
                 LoadingScreenComponent={<LoadingScreen />}
                 onCharacterMessage={handleUnrealMessage}
                 onMicStatus={({ muted }: { muted: boolean }) => setMicMuted(muted)}
+                chatStyle={{ backgroundOpacity: chatOpacity }}
                 avatarStudio={false}
               />}
             </Grid>
@@ -474,6 +478,25 @@ export default function ClientHome() {
                 <Text variant="body-default-s" onBackground="neutral-weak">
                   Mic: {micMuted === null ? "–" : micMuted ? "muted" : "live"}
                 </Text>
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
+                  <Text variant="body-default-s" onBackground="neutral-weak">
+                    Chat opacity
+                  </Text>
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={chatOpacity}
+                    onChange={(e) => setChatOpacity(Number(e.target.value))}
+                    aria-label="Chat backplate opacity"
+                  />
+                  <Text variant="body-default-s" onBackground="neutral-weak">
+                    {chatOpacity.toFixed(2)}
+                  </Text>
+                </label>
               </Flex>
               <Column flex={7} gap="16">
                 <Text
